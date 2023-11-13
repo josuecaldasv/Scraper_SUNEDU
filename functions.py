@@ -120,7 +120,7 @@ def send_keys( segs, driver, xpath_field, key ):
     
     
     
-def scraper_SUNEDU( df, url, velocidad = 'lento' ):
+def scraper_SUNEDU( df, url, velocidad = 'slow' ):
     
     '''
     Objetivo:
@@ -165,6 +165,7 @@ def scraper_SUNEDU( df, url, velocidad = 'lento' ):
     for index, row in df.iterrows():
         
         dni_valor = row[ 'dni' ]
+        print( f'Obs.: { index + 1 }' )
         print( f'DNI: { dni_valor }' )
         
         xpath_dni_campo = '//*[@id="doc"]'
@@ -284,12 +285,6 @@ def scraper_SUNEDU( df, url, velocidad = 'lento' ):
                     continue
                     
                 except:
-                    
-                    driver.switch_to.default_content()
-                    driver.refresh()
-
-                    verificar_titulos_popup = WebDriverWait( driver, segs ).until( EC.element_to_be_clickable( ( By.XPATH, '//*[@id="dvEnLinea"]/div[2]/div[3]/div/div[2]/div/a' ) ) )
-                    verificar_titulos_popup.click()
 
                     refresh_popup( segs, driver, xpath_popup, xpath_frame, refresh = True ) 
                     send_keys( segs, driver, xpath_dni_campo, dni_valor )
